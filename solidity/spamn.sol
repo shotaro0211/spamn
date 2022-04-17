@@ -69,7 +69,7 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
     }
 
     function _attributes(uint256 value, string[] memory choices) internal pure returns (string memory) {
-        string memory att = string(abi.encodePacked('"attributes": [{"trait_type": "Value", "value": "', toString(value), '"}, {"trait_type": "Choices", "value": "', toString(choices.length), '"}, {"display_type": "number", "trait_type": "Value", "value": ', toString(value), '}]'));
+        string memory att = string(abi.encodePacked('"attributes": [{"trait_type": "Value", "value": "', toString(value), '"}, {"trait_type": "Choices", "value": "', toString(choices.length), '"}]'));
         return att;
     } 
 
