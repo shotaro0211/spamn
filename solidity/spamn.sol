@@ -18,6 +18,7 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
     Question[] private _questions;
 
     string private _imageUrl;
+    uint256 private _nextMintId;
 
     function getQuestion(uint256 tokenId) public view onlyOwner returns (Question memory) {
         return _questions[tokenId];
@@ -50,7 +51,8 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
 
     function mint(string memory title, string[] memory choices, uint256 answer, string memory description, address owner) public onlyOwner nonReentrant payable {
         _addQuestions(title, choices, answer, description, msg.sender, msg.value);
-        _safeMint(owner, totalSupply() + 1);
+        _safeMint(owner, _nextMintId);
+        _nextMintId += 1;
     }
 
     function _addQuestions(string memory title, string[] memory choices, uint256 answer, string memory description, address owner, uint256 value) internal {
@@ -75,6 +77,7 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
 
     constructor(string memory imageUrl) ERC721("SPAMN2233", "SPAM2233") Ownable() {
         _imageUrl = imageUrl;
+        _nextMintId = 1;
     }
 
     function _beforeTokenTransfer(
