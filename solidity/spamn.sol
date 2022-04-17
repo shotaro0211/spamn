@@ -21,19 +21,19 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
     uint256 private _nextMintId;
 
     function getQuestion(uint256 tokenId) public view onlyOwner returns (Question memory) {
-        return _questions[tokenId];
+        return _questions[tokenId - 1];
     }
 
     function getQuestionTitle(uint256 tokenId) public view returns (string memory) {
-        return _questions[tokenId].title;
+        return _questions[tokenId - 1].title;
     }
 
     function getQuestionChoices(uint256 tokenId) public view returns (string[] memory) {
-        return _questions[tokenId].choices;
+        return _questions[tokenId - 1].choices;
     }
 
     function getQuestionValue(uint256 tokenId) public view returns (uint256) {
-        return _questions[tokenId].value;
+        return _questions[tokenId - 1].value;
     }
 
     function setAnswer(uint256 tokenId, uint256 answer) public {
@@ -68,15 +68,17 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
         );
     }
 
-    function _attributes(Question memory question) internal pure returns (string memory) {
-        string memory att = string(abi.encodePacked('"attributes": [{"trait_type": "Value", "value": "', toString(question.value), '"}, {"trait_type": "Choices", "value": "', question.choices.length, '"}, {"display_type": "number", "trait_type": "Value", "value": ', toString(question.value), '}]'));
+    function _attributes(uint256 value, string[] memory choices) internal pure returns (string memory) {
+        string memory att = string(abi.encodePacked('"attributes": [{"trait_type": "Value", "value": "', toString(value), '"}, {"trait_type": "Choices", "value": "', toString(choices.length), '"}, {"display_type": "number", "trait_type": "Value", "value": ', toString(value), '}]'));
         return att;
     } 
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
-        Question memory question = getQuestion(tokenId);
-        string memory att = _attributes(question);
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "', question.title, '", "description": "https://spamn.com", "image": "', _imageUrl, '"', att, '}'))));
+        string memory title = getQuestionTitle(tokenId);
+        uint256 value = getQuestionValue(tokenId);
+        string[] memory choices = getQuestionChoices(tokenId);
+        string memory att = _attributes(value, choices);
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "', title, '", "description": "https://spamn.com", "image": "', _imageUrl, '", ', att, '}'))));
         string memory output = string(abi.encodePacked('data:application/json;base64,', json));
         return output;
     }
