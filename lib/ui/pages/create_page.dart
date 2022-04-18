@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_web3/flutter_web3.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:spamn/repository/spamn_web3.dart';
 
 import '../../repository/connect_web3.dart';
 
 final _formKey = GlobalKey<FormBuilderState>();
 
 class CreatePage extends StatefulWidget {
-  const CreatePage({Key? key, required this.title}) : super(key: key);
+  const CreatePage(
+      {Key? key, required this.title, required this.contractAddress})
+      : super(key: key);
 
   final String title;
+  final String contractAddress;
 
   @override
   State<CreatePage> createState() => _CreatePageState();
@@ -17,6 +22,7 @@ class CreatePage extends StatefulWidget {
 
 class _CreatePageState extends State<CreatePage> {
   bool _isConnected = false;
+  Signer? _signer;
 
   @override
   void initState() {
@@ -27,6 +33,9 @@ class _CreatePageState extends State<CreatePage> {
   void _onConnected() async {
     await ConnectWeb3().getSigner().then((value) async {
       final isConnected = value != null ? true : false;
+      if (isConnected == true) {
+        _signer = value;
+      }
       setState(() {
         _isConnected = isConnected;
       });
@@ -150,27 +159,28 @@ class _CreatePageState extends State<CreatePage> {
                   onPressed: () {
                     _formKey.currentState!.save();
                     if (_formKey.currentState!.validate()) {
-                      ConnectWeb3().getSigner();
-                      showDialog(
-                        context: context,
-                        builder: (value) {
-                          return AlertDialog(
-                            title: const Text("スパム作成ありがとうございます！"),
-                            content: const Text(
-                              "このスパムが良問と判断された場合、運営側から特別なNFTを配布いたします",
-                            ),
-                            actions: [
-                              OutlinedButton(
-                                onPressed: () {
-                                  Navigator.popUntil(
-                                      context, (route) => route.isFirst);
-                                },
-                                child: const Text('Home'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                      SpamnWeb3().mint(_signer!, widget.contractAddress,
+                          _formKey.currentState!.value);
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (value) {
+                      //     return AlertDialog(
+                      //       title: const Text("スパム作成ありがとうございます！"),
+                      //       content: const Text(
+                      //         "このスパムが良問と判断された場合、運営側から特別なNFTを配布いたします",
+                      //       ),
+                      //       actions: [
+                      //         OutlinedButton(
+                      //           onPressed: () {
+                      //             Navigator.popUntil(
+                      //                 context, (route) => route.isFirst);
+                      //           },
+                      //           child: const Text('Home'),
+                      //         ),
+                      //       ],
+                      //     );
+                      //   },
+                      // );
                     }
                   },
                 ),

@@ -10,8 +10,10 @@ import 'ui/pages/home_page.dart';
 
 final routes = RouteMap(routes: {
   '/': (_) => const MaterialPage(child: HomePage(title: 'spamn')),
-  '/:contractAddress/create': (info) =>
-      const MaterialPage(child: CreatePage(title: 'create')),
+  '/:contractAddress/create': (info) => MaterialPage(
+      child: CreatePage(
+          title: 'create',
+          contractAddress: info.pathParameters['contractAddress'].toString())),
   '/:contractAddress/:tokenId': (info) =>
       const MaterialPage(child: AnswerPage(title: 'answer'))
 });

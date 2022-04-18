@@ -49,7 +49,7 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
         }
     }
 
-    function mint(string memory title, string[] memory choices, uint256 answer, string memory description, address owner) public onlyOwner nonReentrant payable {
+    function mint(string memory title, string[] memory choices, uint256 answer, string memory description, address owner) public nonReentrant payable {
         _addQuestions(title, choices, answer, description, msg.sender, msg.value);
         _safeMint(owner, _nextMintId);
         _nextMintId += 1;
