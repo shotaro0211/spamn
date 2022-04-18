@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "spamn",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--web-renderer",
+                "html",
+            ]
+        },
+        {
+            "name": "spamn (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "spamn (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

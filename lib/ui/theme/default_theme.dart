@@ -7,7 +7,7 @@ final defaultTheme = ThemeData.dark().copyWith(
   selectedRowColor: Colors.orange,
   unselectedWidgetColor: Colors.white,
   disabledColor: Colors.grey,
-  canvasColor: Colors.white,
+  canvasColor: const Color.fromARGB(255, 150, 0, 0),
   colorScheme: const ColorScheme.dark().copyWith(
     primary: Colors.white,
     secondary: Colors.white,
