@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../repository/connect_web3.dart';
 
-class CreatePage extends StatefulWidget {
-  const CreatePage({Key? key, required this.title}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<CreatePage> createState() => _CreatePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _CreatePageState extends State<CreatePage> {
+class _HomePageState extends State<HomePage> {
   bool _isConnected = false;
 
   @override
