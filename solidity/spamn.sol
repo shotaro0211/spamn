@@ -36,15 +36,16 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
         return _questions[tokenId - 1].value;
     }
 
-    function setAnswer(uint256 tokenId, uint256 answer) public {
+    function setAnswer(uint256 tokenId, uint256 answer) public nonReentrant {
         require(msg.sender == ownerOf(tokenId), "owner invalid");
 
         Question memory question = getQuestion(tokenId);
 
         if (answer == question.answer) {
-            payable(msg.sender).transfer(question.value);
             _burn(tokenId);
+            payable(msg.sender).transfer(question.value);
         } else {
+            question.value = 0;
             payable(question.owner).transfer(question.value);
         }
     }
@@ -86,14 +87,6 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
     constructor(string memory imageUrl) ERC721("SPAMN2233", "SPAM2233") Ownable() {
         _imageUrl = imageUrl;
         _nextMintId = 1;
-    }
-
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 tokenId
-    ) internal pure override {
-        require(from == address(0));
     }
 
     function toString(uint256 value) internal pure returns (string memory) {
