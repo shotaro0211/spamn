@@ -57,7 +57,7 @@ class _CreatePageState extends State<CreatePage> {
                 FormBuilderTextField(
                   name: 'value',
                   decoration: const InputDecoration(
-                    labelText: '懸賞金',
+                    labelText: 'VALUE',
                   ),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(context),
@@ -66,7 +66,7 @@ class _CreatePageState extends State<CreatePage> {
                 FormBuilderTextField(
                   name: 'title',
                   decoration: const InputDecoration(
-                    labelText: '問題文',
+                    labelText: 'TITLE',
                   ),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(context),
@@ -76,7 +76,7 @@ class _CreatePageState extends State<CreatePage> {
                 FormBuilderTextField(
                   name: 'choice1',
                   decoration: const InputDecoration(
-                    labelText: '選択肢１',
+                    labelText: 'CHOICE 1',
                   ),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(context),
@@ -85,7 +85,7 @@ class _CreatePageState extends State<CreatePage> {
                 FormBuilderTextField(
                   name: 'choice2',
                   decoration: const InputDecoration(
-                    labelText: '選択肢２',
+                    labelText: 'CHOICE 2',
                   ),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(context),
@@ -94,7 +94,7 @@ class _CreatePageState extends State<CreatePage> {
                 FormBuilderTextField(
                   name: 'choice3',
                   decoration: const InputDecoration(
-                    labelText: '選択肢３',
+                    labelText: 'CHOICE 3',
                   ),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(context),
@@ -103,7 +103,7 @@ class _CreatePageState extends State<CreatePage> {
                 FormBuilderTextField(
                   name: 'choice4',
                   decoration: const InputDecoration(
-                    labelText: '選択肢４',
+                    labelText: 'CHOICE 4',
                   ),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(context),
@@ -112,13 +112,13 @@ class _CreatePageState extends State<CreatePage> {
                 FormBuilderChoiceChip(
                   name: 'answer',
                   decoration: const InputDecoration(
-                    labelText: '答えの選択肢を選んでください',
+                    labelText: 'ANSWER',
                   ),
                   options: const [
-                    FormBuilderFieldOption(value: 1, child: Text('選択肢１')),
-                    FormBuilderFieldOption(value: 2, child: Text('選択肢２')),
-                    FormBuilderFieldOption(value: 3, child: Text('選択肢３')),
-                    FormBuilderFieldOption(value: 4, child: Text('選択肢４')),
+                    FormBuilderFieldOption(value: 1, child: Text('CHOICE 1')),
+                    FormBuilderFieldOption(value: 2, child: Text('CHOICE 2')),
+                    FormBuilderFieldOption(value: 3, child: Text('CHOICE 3')),
+                    FormBuilderFieldOption(value: 4, child: Text('CHOICE 4')),
                   ],
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(context),
@@ -128,7 +128,7 @@ class _CreatePageState extends State<CreatePage> {
                 FormBuilderTextField(
                   name: 'description',
                   decoration: const InputDecoration(
-                    labelText: '解説',
+                    labelText: 'ANSWER DESCRIPTION',
                   ),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(context),
@@ -138,7 +138,7 @@ class _CreatePageState extends State<CreatePage> {
                 FormBuilderTextField(
                   name: 'address',
                   decoration: const InputDecoration(
-                    labelText: 'ウォレットアドレス',
+                    labelText: 'SEND ADDRESS',
                   ),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(context),
@@ -153,7 +153,7 @@ class _CreatePageState extends State<CreatePage> {
               Expanded(
                 child: OutlinedButton(
                   child: const Text(
-                    "送りつける",
+                    "SEND",
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
@@ -189,7 +189,7 @@ class _CreatePageState extends State<CreatePage> {
               Expanded(
                 child: OutlinedButton(
                   child: const Text(
-                    "やり直す",
+                    "CLEAR",
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {

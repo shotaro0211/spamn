@@ -9,13 +9,13 @@ import 'ui/pages/create_page.dart';
 import 'ui/pages/home_page.dart';
 
 final routes = RouteMap(routes: {
-  '/': (_) => const MaterialPage(child: HomePage(title: 'spamn')),
+  '/': (_) => const MaterialPage(child: HomePage(title: 'SPAMN')),
   '/:contractAddress/create': (info) => MaterialPage(
       child: CreatePage(
-          title: 'create',
+          title: 'CREATE',
           contractAddress: info.pathParameters['contractAddress'].toString())),
   '/:contractAddress/:tokenId': (info) =>
-      const MaterialPage(child: AnswerPage(title: 'answer'))
+      const MaterialPage(child: AnswerPage(title: 'ANSWER'))
 });
 
 void main() {
