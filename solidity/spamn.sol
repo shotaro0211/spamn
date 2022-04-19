@@ -78,7 +78,7 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
         uint256 value = getQuestionValue(tokenId);
         string[] memory choices = getQuestionChoices(tokenId);
         string memory att = _attributes(value, choices);
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "', title, '", "description": "https://spamn.com", "image": "', _imageUrl, '", ', att, '}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "', title, '", "description": "https://spamn1.web.app/', toAsciiString(address(this)), '/', toString(tokenId), '", "image": "', _imageUrl, '", ', att, '}'))));
         string memory output = string(abi.encodePacked('data:application/json;base64,', json));
         return output;
     }
@@ -116,6 +116,23 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
             value /= 10;
         }
         return string(buffer);
+    }
+
+    function toAsciiString(address x) internal pure returns (string memory) {
+        bytes memory s = new bytes(40);
+        for (uint i = 0; i < 20; i++) {
+            bytes1 b = bytes1(uint8(uint(uint160(x)) / (2**(8*(19 - i)))));
+            bytes1 hi = bytes1(uint8(b) / 16);
+            bytes1 lo = bytes1(uint8(b) - 16 * uint8(hi));
+            s[2*i] = char(hi);
+            s[2*i+1] = char(lo);            
+        }
+        return string(s);
+    }
+
+    function char(bytes1 b) internal pure returns (bytes1 c) {
+        if (uint8(b) < 10) return bytes1(uint8(b) + 0x30);
+        else return bytes1(uint8(b) + 0x57);
     }
 }
 
