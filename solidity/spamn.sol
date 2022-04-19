@@ -14,11 +14,14 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
         string description;
         address owner;
         uint256 value;
+        bool answered;
+        bool corrected;
     }
     Question[] private _questions;
 
     string private _imageUrl;
     uint256 private _nextMintId;
+    string private _title;
 
     function getQuestion(uint256 tokenId) public view onlyOwner returns (Question memory) {
         return _questions[tokenId - 1];
@@ -36,16 +39,29 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
         return _questions[tokenId - 1].value;
     }
 
+    function getQuestionCorrected(uint256 tokenId) public view returns (bool) {
+        return _questions[tokenId - 1].corrected;
+    }
+
+    function getQuestionAnswered(uint256 tokenId) public view returns (bool) {
+        return _questions[tokenId - 1].answered;
+    }
+
     function setAnswer(uint256 tokenId, uint256 answer) public nonReentrant {
         require(msg.sender == ownerOf(tokenId), "owner invalid");
 
         Question memory question = _questions[tokenId -1];
 
+        require(question.answered == false, "already answerd");
+
+        question.answered = true;
+
         if (answer == question.answer) {
             _burn(tokenId);
+            question.corrected = true;
             payable(msg.sender).transfer(question.value);
         } else {
-            question.value = 0;
+            question.corrected = false;
             payable(question.owner).transfer(question.value);
         }
     }
@@ -64,7 +80,9 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
                 answer,
                 description,
                 owner,
-                value
+                value,
+                false,
+                false
             )
         );
     }
@@ -75,16 +93,16 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
     } 
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
-        string memory title = getQuestionTitle(tokenId);
         uint256 value = getQuestionValue(tokenId);
         string[] memory choices = getQuestionChoices(tokenId);
         string memory att = _attributes(value, choices);
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "', title, '", "description": "https://spamn1.web.app/', toAsciiString(address(this)), '/', toString(tokenId), '", "image": "', _imageUrl, '", ', att, '}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "', _title, '", "description": "https://spamn1.web.app/', toAsciiString(address(this)), '/', toString(tokenId), '", "image": "', _imageUrl, '", ', att, '}'))));
         string memory output = string(abi.encodePacked('data:application/json;base64,', json));
         return output;
     }
 
-    constructor(string memory imageUrl) ERC721("SPAMN2233", "SPAM2233") Ownable() {
+    constructor(string memory imageUrl, string memory tokenName, string memory title) ERC721(tokenName, "SPAMN") Ownable() {
+        _title = title;
         _imageUrl = imageUrl;
         _nextMintId = 1;
     }
