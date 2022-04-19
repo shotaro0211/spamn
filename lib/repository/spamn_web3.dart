@@ -75,4 +75,28 @@ class SpamnWeb3 {
     });
     return int.parse(value);
   }
+
+  Future<bool> getQuestionCorrected(
+      Signer signer, String contractAddress, int tokenId) async {
+    final abi = await rootBundle.loadString(jsonName);
+    final contract = Contract(contractAddress, abi, signer);
+
+    final value = await contract
+        .call<bool>('getQuestionCorrected', [tokenId]).then((value) {
+      return value;
+    });
+    return value;
+  }
+
+  Future<bool> getQuestionAnswered(
+      Signer signer, String contractAddress, int tokenId) async {
+    final abi = await rootBundle.loadString(jsonName);
+    final contract = Contract(contractAddress, abi, signer);
+
+    final value = await contract
+        .call<bool>('getQuestionAnswered', [tokenId]).then((value) {
+      return value;
+    });
+    return value;
+  }
 }

@@ -26,6 +26,8 @@ class _AnswerPageState extends State<AnswerPage> {
   String _title = '';
   List<dynamic> _choices = [];
   int _value = 0;
+  bool _corrected = false;
+  bool _answered = false;
 
   @override
   void initState() {
@@ -44,6 +46,10 @@ class _AnswerPageState extends State<AnswerPage> {
             _signer!, widget.contractAddress, widget.tokenId);
         _value = await SpamnWeb3()
             .getQuestionValue(_signer!, widget.contractAddress, widget.tokenId);
+        _corrected = await SpamnWeb3().getQuestionCorrected(
+            _signer!, widget.contractAddress, widget.tokenId);
+        _answered = await SpamnWeb3().getQuestionCorrected(
+            _signer!, widget.contractAddress, widget.tokenId);
       }
       setState(() {
         _isConnected = isConnected;
