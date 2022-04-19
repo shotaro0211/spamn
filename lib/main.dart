@@ -11,11 +11,18 @@ import 'ui/pages/home_page.dart';
 final routes = RouteMap(routes: {
   '/': (_) => const MaterialPage(child: HomePage(title: 'SPAMN')),
   '/:contractAddress/create': (info) => MaterialPage(
-      child: CreatePage(
+        child: CreatePage(
           title: 'CREATE',
-          contractAddress: info.pathParameters['contractAddress'].toString())),
-  '/:contractAddress/:tokenId': (info) =>
-      const MaterialPage(child: AnswerPage(title: 'ANSWER'))
+          contractAddress: info.pathParameters['contractAddress'].toString(),
+        ),
+      ),
+  '/:contractAddress/:tokenId': (info) => MaterialPage(
+        child: AnswerPage(
+          title: 'ANSWER',
+          contractAddress: info.pathParameters['contractAddress'].toString(),
+          tokenId: int.parse(info.pathParameters['tokenId'].toString()),
+        ),
+      )
 });
 
 void main() {

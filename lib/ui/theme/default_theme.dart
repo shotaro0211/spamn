@@ -15,5 +15,4 @@ final defaultTheme = ThemeData.light().copyWith(
       backgroundColor: const Color.fromARGB(255, 55, 54, 123),
     ),
   ),
-  textTheme: ThemeData.dark().textTheme.copyWith(),
 );

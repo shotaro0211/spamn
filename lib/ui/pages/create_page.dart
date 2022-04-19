@@ -61,6 +61,7 @@ class _CreatePageState extends State<CreatePage> {
                   ),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(context),
+                    FormBuilderValidators.numeric(context),
                   ]),
                 ),
                 FormBuilderTextField(

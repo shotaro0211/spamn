@@ -25,4 +25,54 @@ class SpamnWeb3 {
     });
     return value;
   }
+
+  Future<TransactionResponse> setAnswer(
+      Signer signer, String contractAddress, int tokenId, int answer) async {
+    final abi = await rootBundle.loadString(jsonName);
+    final contract = Contract(contractAddress, abi, signer);
+
+    final value = await contract.send('setAnswer', [
+      tokenId,
+      answer,
+    ]).then((value) {
+      return value;
+    });
+    return value;
+  }
+
+  Future<String> getQuestionTitle(
+      Signer signer, String contractAddress, int tokenId) async {
+    final abi = await rootBundle.loadString(jsonName);
+    final contract = Contract(contractAddress, abi, signer);
+
+    final value =
+        await contract.call('getQuestionTitle', [tokenId]).then((value) {
+      return value.toString();
+    });
+    return value;
+  }
+
+  Future<List<dynamic>> getQuestionChoices(
+      Signer signer, String contractAddress, int tokenId) async {
+    final abi = await rootBundle.loadString(jsonName);
+    final contract = Contract(contractAddress, abi, signer);
+
+    final value = await contract
+        .call<List<dynamic>>('getQuestionChoices', [tokenId]).then((value) {
+      return value;
+    });
+    return value;
+  }
+
+  Future<int> getQuestionValue(
+      Signer signer, String contractAddress, int tokenId) async {
+    final abi = await rootBundle.loadString(jsonName);
+    final contract = Contract(contractAddress, abi, signer);
+
+    final value =
+        await contract.call('getQuestionValue', [tokenId]).then((value) {
+      return value.toString();
+    });
+    return int.parse(value);
+  }
 }
