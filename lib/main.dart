@@ -29,6 +29,7 @@ void main() {
   setUrlStrategy(PathUrlStrategy());
   runApp(
     MaterialApp.router(
+      title: 'SPAMN',
       localizationsDelegates: const [
         FormBuilderLocalizations.delegate,
       ],
