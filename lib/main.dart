@@ -12,13 +12,13 @@ final routes = RouteMap(routes: {
   '/': (_) => const MaterialPage(child: HomePage(title: 'SPAMN')),
   '/:contractAddress/create': (info) => MaterialPage(
         child: CreatePage(
-          title: 'CREATE',
+          title: 'SPAMN / CREATE',
           contractAddress: info.pathParameters['contractAddress'].toString(),
         ),
       ),
   '/:contractAddress/:tokenId': (info) => MaterialPage(
         child: AnswerPage(
-          title: 'ANSWER',
+          title: 'SPAMN / ANSWER',
           contractAddress: info.pathParameters['contractAddress'].toString(),
           tokenId: int.parse(info.pathParameters['tokenId'].toString()),
         ),

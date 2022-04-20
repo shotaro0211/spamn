@@ -91,9 +91,9 @@ class _HomePageState extends State<HomePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: OutlinedButton(
-                                  child: const Text(
-                                    'Create',
-                                    style: TextStyle(fontSize: 20),
+                                  child: Text(
+                                    'create'.toUpperCase(),
+                                    style: const TextStyle(fontSize: 24),
                                   ),
                                   onPressed: () {
                                     Routemaster.of(context)
@@ -123,9 +123,9 @@ class _HomePageState extends State<HomePage> {
                             Padding(
                               padding: const EdgeInsets.all(10),
                               child: OutlinedButton(
-                                child: const Text(
-                                  'Create',
-                                  style: TextStyle(fontSize: 20),
+                                child: Text(
+                                  'create'.toUpperCase(),
+                                  style: const TextStyle(fontSize: 24),
                                 ),
                                 onPressed: () {},
                               ),

@@ -15,7 +15,7 @@ class MainScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(title, style: Theme.of(context).textTheme.headline4),
           actions: [
             Padding(
               padding: const EdgeInsets.all(5),

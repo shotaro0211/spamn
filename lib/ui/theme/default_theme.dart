@@ -34,7 +34,7 @@ final defaultTheme = ThemeData.light().copyWith(
       minimumSize: const Size(200, 75),
       shape: const StadiumBorder(),
       primary: const Color.fromARGB(255, 39, 55, 82),
-      backgroundColor: const Color.fromARGB(255, 248, 209, 126),
+      backgroundColor: const Color.fromARGB(255, 252, 220, 28),
     ),
   ),
   textTheme: ThemeData.light().textTheme.copyWith(
@@ -48,7 +48,8 @@ final defaultTheme = ThemeData.light().copyWith(
           color: Color.fromARGB(255, 252, 220, 28),
         ),
         headline4: const TextStyle(
-          color: Color.fromARGB(255, 252, 220, 28),
+          color: Color.fromARGB(255, 39, 55, 82),
+          fontWeight: FontWeight.bold,
         ),
         headline5: const TextStyle(
           color: Color.fromARGB(255, 252, 220, 28),
