@@ -21,10 +21,11 @@ class MainScaffold extends StatelessWidget {
                 child: Image.asset('images/astar.png'))
           ],
         ),
-        body: Container(
+        body: SingleChildScrollView(
+            child: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.all(20),
           child: child,
-        ));
+        )));
   }
 }
