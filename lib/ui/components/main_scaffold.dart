@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spamn/repository/connect_web3.dart';
 
 class MainScaffold extends StatelessWidget {
   const MainScaffold({
@@ -17,8 +18,12 @@ class MainScaffold extends StatelessWidget {
           title: Text(title),
           actions: [
             Padding(
-                padding: const EdgeInsets.all(5),
-                child: Image.asset('images/astar.png'))
+              padding: const EdgeInsets.all(5),
+              child: TextButton(
+                onPressed: () async => await ConnectWeb3().addNetwork(),
+                child: Image.asset('images/astar.png'),
+              ),
+            )
           ],
         ),
         body: SingleChildScrollView(

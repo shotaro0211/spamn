@@ -31,4 +31,13 @@ class ConnectWeb3 {
     final signer = await getSigner();
     return signer != null ? true : false;
   }
+
+  Future addNetwork() async {
+    await ethereum!.walletAddChain(
+        chainId: 592,
+        chainName: 'Astar Network',
+        nativeCurrency:
+            CurrencyParams(name: 'Astar', symbol: 'ASTR', decimals: 18),
+        rpcUrls: ['https://rpc.astar.network:8545']);
+  }
 }
