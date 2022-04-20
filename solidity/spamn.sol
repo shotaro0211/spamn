@@ -22,6 +22,7 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
     string private _imageUrl;
     uint256 private _nextMintId;
     string private _title;
+    string private _baseUrl = "https://spamn1.web.app/";
 
     function getQuestion(uint256 tokenId) public view onlyOwner returns (Question memory) {
         return _questions[tokenId - 1];
@@ -66,6 +67,10 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
         }
     }
 
+    function setBaseUrl(string memory baseUrl) public nonReentrant onlyOwner {
+        _baseUrl = baseUrl;
+    }
+
     function mint(string memory title, string[] memory choices, uint256 answer, string memory description, address owner) public nonReentrant payable {
         _addQuestions(title, choices, answer, description, msg.sender, msg.value);
         _safeMint(owner, _nextMintId);
@@ -96,7 +101,7 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
         uint256 value = getQuestionValue(tokenId);
         string[] memory choices = getQuestionChoices(tokenId);
         string memory att = _attributes(value, choices);
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "', _title, '", "description": "https://spamn1.web.app/', toAsciiString(address(this)), '/', toString(tokenId), '", "image": "', _imageUrl, '", ', att, '}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "', _title, '", "description": "', _baseUrl, toAsciiString(address(this)), '/', toString(tokenId), '", "image": "', _imageUrl, '", ', att, '}'))));
         string memory output = string(abi.encodePacked('data:application/json;base64,', json));
         return output;
     }
