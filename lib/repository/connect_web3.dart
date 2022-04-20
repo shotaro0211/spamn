@@ -6,7 +6,7 @@ class ConnectWeb3 {
     if (ethereum != null) {
       try {
         await ethereum!.requestAccount();
-        const networkId = 137;
+        const networkId = 592;
         await ethereum!.walletSwitchChain(networkId);
         final web3provider = Web3Provider(ethereum!);
         final network = await web3provider.getNetwork();

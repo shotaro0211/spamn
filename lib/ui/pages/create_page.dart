@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:spamn/repository/spamn_web3.dart';
+import 'package:spamn/ui/components/main_scaffold.dart';
 
 import '../../repository/connect_web3.dart';
 
@@ -44,11 +45,9 @@ class _CreatePageState extends State<CreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
+    return MainScaffold(
+      title: widget.title,
+      child: Column(
         children: <Widget>[
           FormBuilder(
             key: _formKey,

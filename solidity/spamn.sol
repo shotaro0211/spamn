@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
+contract SPAMN is ERC721Enumerable, Ownable, ReentrancyGuard {
 
     struct Question {
         string title;
@@ -65,6 +65,14 @@ contract SPAMN2233 is ERC721Enumerable, Ownable, ReentrancyGuard {
             question.corrected = false;
             payable(question.owner).transfer(question.value);
         }
+    }
+
+    function getImageUrl() public view returns (string memory) {
+        return _imageUrl;
+    }
+
+    function getTitle() public view returns (string memory) {
+        return _title;
     }
 
     function setBaseUrl(string memory baseUrl) public nonReentrant onlyOwner {

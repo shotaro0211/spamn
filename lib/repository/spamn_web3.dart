@@ -99,4 +99,24 @@ class SpamnWeb3 {
     });
     return value;
   }
+
+  Future<String> getImageUrl(Signer signer, String contractAddress) async {
+    final abi = await rootBundle.loadString(jsonName);
+    final contract = Contract(contractAddress, abi, signer);
+
+    final value = await contract.call('getImageUrl').then((value) {
+      return value.toString();
+    });
+    return value;
+  }
+
+  Future<String> getTitle(Signer signer, String contractAddress) async {
+    final abi = await rootBundle.loadString(jsonName);
+    final contract = Contract(contractAddress, abi, signer);
+
+    final value = await contract.call('getTitle').then((value) {
+      return value.toString();
+    });
+    return value;
+  }
 }
