@@ -15,6 +15,11 @@ class MainScaffold extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(title),
+          actions: [
+            Padding(
+                padding: const EdgeInsets.all(5),
+                child: Image.asset('images/astar.png'))
+          ],
         ),
         body: Container(
           alignment: Alignment.center,
