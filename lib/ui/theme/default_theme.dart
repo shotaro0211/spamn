@@ -56,5 +56,8 @@ final defaultTheme = ThemeData.light().copyWith(
         headline6: const TextStyle(
           color: Color.fromARGB(255, 252, 220, 28),
         ),
+        subtitle1: const TextStyle(
+          color: Colors.white,
+        ),
       ),
 );
