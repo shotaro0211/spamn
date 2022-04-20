@@ -5,7 +5,6 @@ import 'package:spamn/repository/spamn_web3.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../repository/connect_web3.dart';
-import '../components/center_single_child_scroll_view.dart';
 import '../components/main_scaffold.dart';
 
 class HomePage extends StatefulWidget {
@@ -59,15 +58,6 @@ class _HomePageState extends State<HomePage> {
       child: _isConnected
           ? Column(
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  child: FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Text('collection'.toUpperCase(),
-                        style: Theme.of(context).textTheme.headline1),
-                  ),
-                ),
-                const SizedBox(height: 20),
                 FittedBox(
                   fit: BoxFit.fitWidth,
                   child: Row(
