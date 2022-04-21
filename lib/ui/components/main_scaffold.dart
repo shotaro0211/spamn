@@ -28,8 +28,8 @@ class MainScaffold extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(5),
               child: TextButton(
-                onPressed: () async => await launch(
-                    'https://metamask.app.link/dapp/spamn1.web.app/'),
+                onPressed: () async =>
+                    await launch('https://metamask.app.link/dapp/spamn.app/'),
                 child: Image.asset('images/metamask.png'),
               ),
             ),

@@ -23,7 +23,7 @@ contract SPAMN is ERC721Enumerable, Ownable, ReentrancyGuard {
     uint256 private _nextMintId;
     string private _title;
     address[] private _watches;
-    string private _baseUrl = "https://spamn1.web.app/";
+    string private _baseUrl = "https://spamn.app/";
 
     function getQuestion(uint256 tokenId) public view onlyOwner returns (Question memory) {
         return _questions[tokenId - 1];
