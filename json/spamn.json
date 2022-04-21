@@ -118,6 +118,19 @@
 		"inputs": [
 			{
 				"internalType": "address",
+				"name": "watch",
+				"type": "address"
+			}
+		],
+		"name": "addWatch",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
 				"name": "to",
 				"type": "address"
 			},
@@ -353,6 +366,19 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "getTotalWatchCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -374,6 +400,39 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"internalType": "string[]",
+				"name": "choices",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256",
+				"name": "answer",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "address[]",
+				"name": "owners",
+				"type": "address[]"
+			}
+		],
+		"name": "listMint",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -702,6 +761,34 @@
 		"name": "transferOwnership",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"internalType": "string[]",
+				"name": "choices",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256",
+				"name": "answer",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			}
+		],
+		"name": "watchMint",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	}
 ]

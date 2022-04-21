@@ -22,6 +22,7 @@ contract SPAMN is ERC721Enumerable, Ownable, ReentrancyGuard {
     string private _imageUrl;
     uint256 private _nextMintId;
     string private _title;
+    address[] private _watches;
     string private _baseUrl = "https://spamn1.web.app/";
 
     function getQuestion(uint256 tokenId) public view onlyOwner returns (Question memory) {
@@ -75,12 +76,36 @@ contract SPAMN is ERC721Enumerable, Ownable, ReentrancyGuard {
         return _title;
     }
 
+    function addWatch(address watch) public nonReentrant {
+        _watches.push(watch);
+    }
+
+    function getTotalWatchCount() public view returns (uint256) {
+        return _watches.length;
+    }
+
     function setBaseUrl(string memory baseUrl) public nonReentrant onlyOwner {
         _baseUrl = baseUrl;
     }
 
+    function watchMint(string memory title, string[] memory choices, uint256 answer, string memory description) public nonReentrant payable {
+        for (uint256 i = 0; i < _watches.length; i++) {
+            _claim(title, choices, answer, description, _watches[i], msg.value / _watches.length);
+        }
+    }
+
+    function listMint(string memory title, string[] memory choices, uint256 answer, string memory description, address[] memory owners) public nonReentrant payable {
+        for (uint256 i = 0; i < owners.length; i++) {
+            _claim(title, choices, answer, description, owners[i], msg.value / owners.length);
+        }
+    }
+
     function mint(string memory title, string[] memory choices, uint256 answer, string memory description, address owner) public nonReentrant payable {
-        _addQuestions(title, choices, answer, description, msg.sender, msg.value);
+        _claim(title, choices, answer, description, owner, msg.value);
+    }
+
+    function _claim(string memory title, string[] memory choices, uint256 answer, string memory description, address owner, uint256 value) internal {
+        _addQuestions(title, choices, answer, description, msg.sender, value);
         _safeMint(owner, _nextMintId);
         _nextMintId += 1;
     }
