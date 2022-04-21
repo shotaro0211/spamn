@@ -19,8 +19,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final String _baseUrl = 'https://tofunft.com/nft/astar';
   final List<String> _contracts = [
-    '0x0619003F76dB6C029D239312f63dD6543AAeB9C5',
-    '0xf1A368A3Aa972106A74eF2232a4Eb3a322CbF855',
+    '0x90F3FF39da6900E7b51EB38ebb25bfEb37356A38',
+    '0x90F3FF39da6900E7b51EB38ebb25bfEb37356A38',
+    '0x90F3FF39da6900E7b51EB38ebb25bfEb37356A38',
   ];
   final List<String> _titles = [];
   final List<String> _imageUrls = [];
@@ -72,11 +73,29 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () {
                                     launch('$_baseUrl/${_contracts[i]}/1');
                                   },
-                                  child: Image.network(_imageUrls[i]),
+                                  child: Image.network(
+                                    _imageUrls[i],
+                                  ),
                                 ),
                               ),
                               Text(_titles[i],
-                                  style: Theme.of(context).textTheme.headline5),
+                                  style: Theme.of(context).textTheme.headline3),
+                              FutureBuilder(
+                                future: SpamnWeb3().getTotalWatchCount(
+                                    _signer!, _contracts[i]),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<int> snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Text(
+                                      '${snapshot.data} watch'.toUpperCase(),
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
+                                    );
+                                  } else {
+                                    return const CircularProgressIndicator();
+                                  }
+                                },
+                              ),
                               const SizedBox(height: 10),
                               Padding(
                                 padding: const EdgeInsets.all(10),
@@ -91,38 +110,44 @@ class _HomePageState extends State<HomePage> {
                                   },
                                 ),
                               ),
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: FutureBuilder(
+                                  future: SpamnWeb3()
+                                      .watched(_signer!, _contracts[i]),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<bool> snapshot) {
+                                    if (snapshot.hasData) {
+                                      if (snapshot.data == true) {
+                                        return OutlinedButton(
+                                            child: Text(
+                                              'watched'.toUpperCase(),
+                                              style:
+                                                  const TextStyle(fontSize: 24),
+                                            ),
+                                            onPressed: () {});
+                                      } else {
+                                        return OutlinedButton(
+                                          child: Text(
+                                            'watch'.toUpperCase(),
+                                            style:
+                                                const TextStyle(fontSize: 24),
+                                          ),
+                                          onPressed: () async =>
+                                              await SpamnWeb3().addWatch(
+                                                  _signer!, _contracts[i]),
+                                        );
+                                      }
+                                    } else {
+                                      return const CircularProgressIndicator();
+                                    }
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                      box(
-                        Column(
-                          children: [
-                            MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: Image.network(
-                                  'https://dentou-s3.s3.ap-northeast-1.amazonaws.com/public/4814.jpg',
-                                  width: 400,
-                                ),
-                              ),
-                            ),
-                            Text('comming soon'.toUpperCase(),
-                                style: Theme.of(context).textTheme.headline5),
-                            const SizedBox(height: 10),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: OutlinedButton(
-                                child: Text(
-                                  'create'.toUpperCase(),
-                                  style: const TextStyle(fontSize: 24),
-                                ),
-                                onPressed: () {},
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ),

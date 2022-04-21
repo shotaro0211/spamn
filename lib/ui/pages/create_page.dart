@@ -140,9 +140,6 @@ class _CreatePageState extends State<CreatePage> {
                   decoration: const InputDecoration(
                     labelText: 'SEND ADDRESS',
                   ),
-                  validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(context),
-                  ]),
                 ),
                 const SizedBox(height: 50),
               ],
@@ -159,28 +156,13 @@ class _CreatePageState extends State<CreatePage> {
                   onPressed: () {
                     _formKey.currentState!.save();
                     if (_formKey.currentState!.validate()) {
-                      SpamnWeb3().mint(_signer!, widget.contractAddress,
-                          _formKey.currentState!.value);
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (value) {
-                      //     return AlertDialog(
-                      //       title: const Text("スパム作成ありがとうございます！"),
-                      //       content: const Text(
-                      //         "このスパムが良問と判断された場合、運営側から特別なNFTを配布いたします",
-                      //       ),
-                      //       actions: [
-                      //         OutlinedButton(
-                      //           onPressed: () {
-                      //             Navigator.popUntil(
-                      //                 context, (route) => route.isFirst);
-                      //           },
-                      //           child: const Text('Home'),
-                      //         ),
-                      //       ],
-                      //     );
-                      //   },
-                      // );
+                      if (_formKey.currentState!.value['address'] != null) {
+                        SpamnWeb3().mint(_signer!, widget.contractAddress,
+                            _formKey.currentState!.value);
+                      } else {
+                        SpamnWeb3().watchMint(_signer!, widget.contractAddress,
+                            _formKey.currentState!.value);
+                      }
                     }
                   },
                 ),

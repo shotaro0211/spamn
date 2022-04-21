@@ -76,8 +76,17 @@ contract SPAMN is ERC721Enumerable, Ownable, ReentrancyGuard {
         return _title;
     }
 
-    function addWatch(address watch) public nonReentrant {
-        _watches.push(watch);
+    function watched() public view returns (bool) {
+        for(uint256 i = 0; i < _watches.length; i++) {
+            if (_watches[i] == msg.sender) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function addWatch() public nonReentrant {
+        _watches.push(msg.sender);
     }
 
     function getTotalWatchCount() public view returns (uint256) {
@@ -89,12 +98,10 @@ contract SPAMN is ERC721Enumerable, Ownable, ReentrancyGuard {
     }
 
     function watchMint(string memory title, string[] memory choices, uint256 answer, string memory description) public nonReentrant payable {
-        for (uint256 i = 0; i < _watches.length; i++) {
-            _claim(title, choices, answer, description, _watches[i], msg.value / _watches.length);
-        }
+        _listMint(title, choices, answer, description, _watches);
     }
 
-    function listMint(string memory title, string[] memory choices, uint256 answer, string memory description, address[] memory owners) public nonReentrant payable {
+    function _listMint(string memory title, string[] memory choices, uint256 answer, string memory description, address[] memory owners) internal {
         for (uint256 i = 0; i < owners.length; i++) {
             _claim(title, choices, answer, description, owners[i], msg.value / owners.length);
         }

@@ -115,13 +115,7 @@
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "watch",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"name": "addWatch",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -400,39 +394,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "title",
-				"type": "string"
-			},
-			{
-				"internalType": "string[]",
-				"name": "choices",
-				"type": "string[]"
-			},
-			{
-				"internalType": "uint256",
-				"name": "answer",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "description",
-				"type": "string"
-			},
-			{
-				"internalType": "address[]",
-				"name": "owners",
-				"type": "address[]"
-			}
-		],
-		"name": "listMint",
-		"outputs": [],
-		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -789,6 +750,19 @@
 		"name": "watchMint",
 		"outputs": [],
 		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "watched",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	}
 ]
