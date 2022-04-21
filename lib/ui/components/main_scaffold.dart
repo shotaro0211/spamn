@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:routemaster/routemaster.dart';
 import 'package:spamn/repository/connect_web3.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,7 +17,13 @@ class MainScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(title, style: Theme.of(context).textTheme.headline4),
+          title: TextButton(
+            onPressed: () => Routemaster.of(context).pop('/'),
+            child: Image.asset(
+              'images/logo.png',
+              height: 40,
+            ),
+          ),
           actions: [
             Padding(
               padding: const EdgeInsets.all(5),

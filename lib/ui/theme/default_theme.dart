@@ -5,8 +5,8 @@ final defaultTheme = ThemeData.light().copyWith(
   scaffoldBackgroundColor: const Color.fromARGB(255, 39, 55, 82),
   backgroundColor: const Color.fromARGB(255, 39, 55, 82),
   appBarTheme: const AppBarTheme(
-    foregroundColor: Color.fromARGB(255, 39, 55, 82),
-    color: Color.fromARGB(255, 252, 220, 28),
+    foregroundColor: Color.fromARGB(255, 252, 220, 28),
+    color: Colors.black,
   ),
   colorScheme: const ColorScheme.light().copyWith(
     primary: const Color.fromARGB(255, 252, 220, 28),
@@ -32,9 +32,11 @@ final defaultTheme = ThemeData.light().copyWith(
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       minimumSize: const Size(200, 75),
+      side: const BorderSide(
+          width: 2.5, color: Color.fromARGB(255, 252, 220, 28)),
       shape: const StadiumBorder(),
-      primary: const Color.fromARGB(255, 39, 55, 82),
-      backgroundColor: const Color.fromARGB(255, 252, 220, 28),
+      primary: const Color.fromARGB(255, 252, 220, 28),
+      backgroundColor: Colors.black,
     ),
   ),
   textTheme: ThemeData.light().textTheme.copyWith(
