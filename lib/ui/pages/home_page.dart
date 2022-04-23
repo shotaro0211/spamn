@@ -20,9 +20,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final String _baseUrl = 'https://tofunft.com/nft/astar';
   final List<String> _contracts = [
-    '0x90F3FF39da6900E7b51EB38ebb25bfEb37356A38',
-    '0x90F3FF39da6900E7b51EB38ebb25bfEb37356A38',
-    '0x90F3FF39da6900E7b51EB38ebb25bfEb37356A38',
+    '0x3F0676A3eF42330CD46435C6871C4BE4F72fC02D',
+    '0xf08fFf1176c6baa173925D349413B2b81e96A2f0',
+    '0xCB80568DC759d718B17d994a9A328E43764b64e1',
   ];
   final List<String> _titles = [];
   final List<String> _imageUrls = [];
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Text(_titles[i],
                                     style:
-                                        Theme.of(context).textTheme.headline3),
+                                        Theme.of(context).textTheme.headline5),
                                 FutureBuilder(
                                   future: SpamnWeb3().getTotalWatchCount(
                                       _signer!, _contracts[i]),
@@ -106,53 +106,57 @@ class _HomePageState extends State<HomePage> {
                                   },
                                 ),
                                 const SizedBox(height: 10),
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: OutlinedButton(
-                                    child: Text(
-                                      'create'.toUpperCase(),
-                                      style: const TextStyle(fontSize: 24),
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: OutlinedButton(
+                                        child: Text(
+                                          'create'.toUpperCase(),
+                                          style: const TextStyle(fontSize: 24),
+                                        ),
+                                        onPressed: () {
+                                          Routemaster.of(context)
+                                              .push('/${_contracts[i]}/create');
+                                        },
+                                      ),
                                     ),
-                                    onPressed: () {
-                                      Routemaster.of(context)
-                                          .push('/${_contracts[i]}/create');
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: FutureBuilder(
-                                    future: SpamnWeb3()
-                                        .watched(_signer!, _contracts[i]),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<bool> snapshot) {
-                                      if (snapshot.hasData) {
-                                        if (snapshot.data == true) {
-                                          return OutlinedButton(
-                                              child: Text(
-                                                'watched'.toUpperCase(),
-                                                style: const TextStyle(
-                                                    fontSize: 24),
-                                              ),
-                                              onPressed: () {});
-                                        } else {
-                                          return OutlinedButton(
-                                            child: Text(
-                                              'watch'.toUpperCase(),
-                                              style:
-                                                  const TextStyle(fontSize: 24),
-                                            ),
-                                            onPressed: () async =>
-                                                await SpamnWeb3().addWatch(
-                                                    _signer!, _contracts[i]),
-                                          );
-                                        }
-                                      } else {
-                                        return const CircularProgressIndicator();
-                                      }
-                                    },
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: FutureBuilder(
+                                        future: SpamnWeb3()
+                                            .watched(_signer!, _contracts[i]),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<bool> snapshot) {
+                                          if (snapshot.hasData) {
+                                            if (snapshot.data == true) {
+                                              return OutlinedButton(
+                                                  child: Text(
+                                                    'watched'.toUpperCase(),
+                                                    style: const TextStyle(
+                                                        fontSize: 24),
+                                                  ),
+                                                  onPressed: () {});
+                                            } else {
+                                              return OutlinedButton(
+                                                child: Text(
+                                                  'watch'.toUpperCase(),
+                                                  style: const TextStyle(
+                                                      fontSize: 24),
+                                                ),
+                                                onPressed: () async =>
+                                                    await SpamnWeb3().addWatch(
+                                                        _signer!,
+                                                        _contracts[i]),
+                                              );
+                                            }
+                                          } else {
+                                            return const CircularProgressIndicator();
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
