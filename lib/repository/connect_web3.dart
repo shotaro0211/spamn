@@ -50,6 +50,6 @@ class ConnectWeb3 {
         chainName: 'Astar Network',
         nativeCurrency:
             CurrencyParams(name: 'Astar', symbol: 'ASTR', decimals: 18),
-        rpcUrls: ['https://rpc.astar.network:8545']);
+        rpcUrls: ['https://astar.api.onfinality.io/public']);
   }
 }
