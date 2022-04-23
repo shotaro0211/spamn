@@ -41,14 +41,6 @@ contract SPAMN is ERC721Enumerable, Ownable, ReentrancyGuard {
         return _questions[tokenId - 1].value;
     }
 
-    function getQuestionCorrected(uint256 tokenId) public view returns (bool) {
-        return _questions[tokenId - 1].corrected;
-    }
-
-    function getQuestionAnswered(uint256 tokenId) public view returns (bool) {
-        return _questions[tokenId - 1].answered;
-    }
-
     function setAnswer(uint256 tokenId, uint256 answer) public nonReentrant {
         require(msg.sender == ownerOf(tokenId), "owner invalid");
 
@@ -132,15 +124,17 @@ contract SPAMN is ERC721Enumerable, Ownable, ReentrancyGuard {
         );
     }
 
-    function _attributes(uint256 value, string[] memory choices) internal pure returns (string memory) {
-        string memory att = string(abi.encodePacked('"attributes": [{"trait_type": "Value", "value": "', toString(value), '"}, {"trait_type": "Choices", "value": "', toString(choices.length), '"}]'));
+    function _attributes(uint256 value, string[] memory choices, bool answered, bool corrected) internal pure returns (string memory) {
+        string memory att = string(abi.encodePacked('"attributes": [{"trait_type": "Value", "value": "', toString(value), '"}, {"trait_type": "Choices", "value": "', toString(choices.length), '"}, {"trait_type": "Answered", "value": "', answered ? "true" : "false", '"}, {"trait_type": "Corrected", "value": "', corrected ? "true" : "false", '"}]'));
         return att;
     } 
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
         uint256 value = getQuestionValue(tokenId);
         string[] memory choices = getQuestionChoices(tokenId);
-        string memory att = _attributes(value, choices);
+        bool answered = _questions[tokenId - 1].answered;
+        bool corrected = _questions[tokenId - 1].corrected;
+        string memory att = _attributes(value, choices, answered, corrected);
         string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "', _title, '", "description": "', _baseUrl, toAsciiString(address(this)), '/', toString(tokenId), '", "image": "', _imageUrl, '", ', att, '}'))));
         string memory output = string(abi.encodePacked('data:application/json;base64,', json));
         return output;
