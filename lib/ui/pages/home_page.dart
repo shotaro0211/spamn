@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:spamn/repository/spamn_web3.dart';
+import 'package:spamn/ui/components/no_connected.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../repository/connect_web3.dart';
@@ -32,7 +33,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _onConnected();
+    Future(() async {
+      await ConnectWeb3().isConnected().then((value) {
+        if (value) {
+          _onConnected();
+        }
+      });
+    });
   }
 
   void _onConnected() async {
@@ -55,106 +62,109 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MainScaffold(
-      title: widget.title,
-      child: _isConnected
-          ? Column(
-              children: [
-                FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Row(
-                    children: [
-                      for (int i = 0; i < _contracts.length; i++)
-                        box(
-                          Column(
-                            children: [
-                              MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    launch('$_baseUrl/${_contracts[i]}/1');
-                                  },
-                                  child: Image.network(
-                                    _imageUrls[i],
+        title: widget.title,
+        child: _isConnected
+            ? Column(
+                children: [
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Row(
+                      children: [
+                        for (int i = 0; i < _contracts.length; i++)
+                          box(
+                            Column(
+                              children: [
+                                MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      launch('$_baseUrl/${_contracts[i]}/1');
+                                    },
+                                    child: Image.network(
+                                      _imageUrls[i],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Text(_titles[i],
-                                  style: Theme.of(context).textTheme.headline3),
-                              FutureBuilder(
-                                future: SpamnWeb3().getTotalWatchCount(
-                                    _signer!, _contracts[i]),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<int> snapshot) {
-                                  if (snapshot.hasData) {
-                                    return Text(
-                                      '${snapshot.data} watch'.toUpperCase(),
-                                      style:
-                                          Theme.of(context).textTheme.headline5,
-                                    );
-                                  } else {
-                                    return const CircularProgressIndicator();
-                                  }
-                                },
-                              ),
-                              const SizedBox(height: 10),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: OutlinedButton(
-                                  child: Text(
-                                    'create'.toUpperCase(),
-                                    style: const TextStyle(fontSize: 24),
-                                  ),
-                                  onPressed: () {
-                                    Routemaster.of(context)
-                                        .push('/${_contracts[i]}/create');
-                                  },
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: FutureBuilder(
-                                  future: SpamnWeb3()
-                                      .watched(_signer!, _contracts[i]),
+                                Text(_titles[i],
+                                    style:
+                                        Theme.of(context).textTheme.headline3),
+                                FutureBuilder(
+                                  future: SpamnWeb3().getTotalWatchCount(
+                                      _signer!, _contracts[i]),
                                   builder: (BuildContext context,
-                                      AsyncSnapshot<bool> snapshot) {
+                                      AsyncSnapshot<int> snapshot) {
                                     if (snapshot.hasData) {
-                                      if (snapshot.data == true) {
-                                        return OutlinedButton(
-                                            child: Text(
-                                              'watched'.toUpperCase(),
-                                              style:
-                                                  const TextStyle(fontSize: 24),
-                                            ),
-                                            onPressed: () {});
-                                      } else {
-                                        return OutlinedButton(
-                                          child: Text(
-                                            'watch'.toUpperCase(),
-                                            style:
-                                                const TextStyle(fontSize: 24),
-                                          ),
-                                          onPressed: () async =>
-                                              await SpamnWeb3().addWatch(
-                                                  _signer!, _contracts[i]),
-                                        );
-                                      }
+                                      return Text(
+                                        '${snapshot.data} watch'.toUpperCase(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5,
+                                      );
                                     } else {
                                       return const CircularProgressIndicator();
                                     }
                                   },
                                 ),
-                              ),
-                            ],
+                                const SizedBox(height: 10),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: OutlinedButton(
+                                    child: Text(
+                                      'create'.toUpperCase(),
+                                      style: const TextStyle(fontSize: 24),
+                                    ),
+                                    onPressed: () {
+                                      Routemaster.of(context)
+                                          .push('/${_contracts[i]}/create');
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: FutureBuilder(
+                                    future: SpamnWeb3()
+                                        .watched(_signer!, _contracts[i]),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<bool> snapshot) {
+                                      if (snapshot.hasData) {
+                                        if (snapshot.data == true) {
+                                          return OutlinedButton(
+                                              child: Text(
+                                                'watched'.toUpperCase(),
+                                                style: const TextStyle(
+                                                    fontSize: 24),
+                                              ),
+                                              onPressed: () {});
+                                        } else {
+                                          return OutlinedButton(
+                                            child: Text(
+                                              'watch'.toUpperCase(),
+                                              style:
+                                                  const TextStyle(fontSize: 24),
+                                            ),
+                                            onPressed: () async =>
+                                                await SpamnWeb3().addWatch(
+                                                    _signer!, _contracts[i]),
+                                          );
+                                        }
+                                      } else {
+                                        return const CircularProgressIndicator();
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            )
-          : const Center(child: CircularProgressIndicator()),
-    );
+                ],
+              )
+            : NoConnected(onPressed: () async {
+                _onConnected();
+              }));
   }
 
   Widget box(Widget child) {

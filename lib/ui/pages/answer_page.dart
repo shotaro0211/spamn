@@ -1,8 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 import 'package:spamn/repository/spamn_web3.dart';
+import 'package:spamn/ui/components/no_connected.dart';
 
 import '../../repository/connect_web3.dart';
+import '../../utils/ether_ext.dart';
+import '../components/main_scaffold.dart';
 
 class AnswerPage extends StatefulWidget {
   const AnswerPage(
@@ -32,7 +37,13 @@ class _AnswerPageState extends State<AnswerPage> {
   @override
   void initState() {
     super.initState();
-    _onConnected();
+    Future(() async {
+      await ConnectWeb3().isConnected().then((value) {
+        if (value) {
+          _onConnected();
+        }
+      });
+    });
   }
 
   void _onConnected() async {
@@ -59,39 +70,43 @@ class _AnswerPageState extends State<AnswerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              _title,
-              style: Theme.of(context).textTheme.headline2,
-            ),
-            for (int i = 0; i < _choices.length; i++)
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: OutlinedButton(
-                  child: Text(
-                    _choices[i].toString(),
-                    style: const TextStyle(fontSize: 20),
+    return MainScaffold(
+      title: widget.title,
+      child: _isConnected
+          ? FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                  Text(
+                    _title,
+                    style: Theme.of(context).textTheme.headline2,
                   ),
-                  onPressed: () async {
-                    await SpamnWeb3().setAnswer(_signer!,
-                        widget.contractAddress, widget.tokenId, i + 1);
-                  },
-                ),
+                  for (int i = 0; i < _choices.length; i++)
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: OutlinedButton(
+                        child: Text(
+                          _choices[i].toString(),
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        onPressed: () async {
+                          await SpamnWeb3().setAnswer(_signer!,
+                              widget.contractAddress, widget.tokenId, i + 1);
+                        },
+                      ),
+                    ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                  Text(
+                    "Reward: ${toEther(_value).toString()} ASTR",
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                ],
               ),
-            Text(
-              _value.toString(),
-              style: Theme.of(context).textTheme.headline2,
-            ),
-          ],
-        ),
-      ),
+            )
+          : NoConnected(onPressed: () async {
+              _onConnected();
+            }),
     );
   }
 }
