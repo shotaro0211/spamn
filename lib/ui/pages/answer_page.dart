@@ -95,7 +95,7 @@ class _AnswerPageState extends State<AnswerPage> {
                     ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                   Text(
-                    "Reward: ${toEther(_value).toString()} MATIC",
+                    "Reward: ${toEther(_value).toString()} ASTR",
                     style: Theme.of(context).textTheme.headline3,
                   ),
                 ],
