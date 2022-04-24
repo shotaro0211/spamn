@@ -71,12 +71,14 @@ class _AnswerPageState extends State<AnswerPage> {
                 children: <Widget>[
                   SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                   Container(
+                    alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: Text(
                       _title,
                       style: Theme.of(context).textTheme.headline5,
                     ),
                   ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                   for (int i = 0; i < _choices.length; i++)
                     Padding(
                       padding: const EdgeInsets.all(10),
