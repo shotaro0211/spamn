@@ -18,20 +18,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Polygon
-  final String _baseUrl = 'https://opensea.io/assets/matic';
+  final String _baseUrl = 'https://tofunft.com/nft/astar';
   final List<String> _contracts = [
-    '0xA77C9240a7AA679B701fF922Bc7454a238F83148',
-    '0x50274a3EFF61e2A3a46aAa5911D90f740f1CF8b4',
-    '0x6985897284d01893950082d3e8B789DAA3034c2f',
+    '0xb90f8d694d0E248fA730Db660619EE3c1f20E62F',
+    '0xC075047E7DB6b1E9Af139bD24A45F69337AC2dB8',
+    '0xeD62679f9490AC35ABc7c2da1e01440dA397401E',
   ];
-  // Astar
-  // final String _baseUrl = 'https://tofunft.com/nft/astar';
-  // final List<String> _contracts = [
-  //   '0x3F0676A3eF42330CD46435C6871C4BE4F72fC02D',
-  //   '0xf08fFf1176c6baa173925D349413B2b81e96A2f0',
-  //   '0xCB80568DC759d718B17d994a9A328E43764b64e1',
-  // ];
   final List<String> _titles = [];
   final List<String> _imageUrls = [];
 
