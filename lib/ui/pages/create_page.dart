@@ -64,7 +64,7 @@ class _CreatePageState extends State<CreatePage> {
                       FormBuilderTextField(
                         name: 'value',
                         decoration: const InputDecoration(
-                          labelText: 'VALUE',
+                          labelText: 'VALUE (ASTR)',
                         ),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(context),
@@ -150,7 +150,7 @@ class _CreatePageState extends State<CreatePage> {
                       FormBuilderTextField(
                         name: 'address',
                         decoration: const InputDecoration(
-                          labelText: 'SEND ADDRESS',
+                          labelText: 'SEND ADDRESS ※If none, sent to WATCH',
                         ),
                       ),
                       const SizedBox(height: 50),

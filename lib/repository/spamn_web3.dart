@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 
@@ -9,17 +11,25 @@ class SpamnWeb3 {
     final abi = await rootBundle.loadString(jsonName);
     final contract = Contract(contractAddress, abi, signer);
 
-    final value = await contract.send('watchMint', [
-      formValue['title'].toString(),
+    final value = await contract
+        .send(
+      'watchMint',
       [
-        formValue['choice1'].toString(),
-        formValue['choice2'].toString(),
-        formValue['choice3'].toString(),
-        formValue['choice4'].toString(),
+        formValue['title'].toString(),
+        [
+          formValue['choice1'].toString(),
+          formValue['choice2'].toString(),
+          formValue['choice3'].toString(),
+          formValue['choice4'].toString(),
+        ],
+        int.parse(formValue['answer'].toString()),
+        formValue['description'].toString(),
       ],
-      int.parse(formValue['answer'].toString()),
-      formValue['description'].toString(),
-    ]).then((value) {
+      TransactionOverride(
+          value: BigInt.from(
+              int.parse(formValue['value'].toString()) * pow(10, 18))),
+    )
+        .then((value) {
       return value;
     });
     return value;
@@ -30,18 +40,26 @@ class SpamnWeb3 {
     final abi = await rootBundle.loadString(jsonName);
     final contract = Contract(contractAddress, abi, signer);
 
-    final value = await contract.send('mint', [
-      formValue['title'].toString(),
+    final value = await contract
+        .send(
+      'mint',
       [
-        formValue['choice1'].toString(),
-        formValue['choice2'].toString(),
-        formValue['choice3'].toString(),
-        formValue['choice4'].toString(),
+        formValue['title'].toString(),
+        [
+          formValue['choice1'].toString(),
+          formValue['choice2'].toString(),
+          formValue['choice3'].toString(),
+          formValue['choice4'].toString(),
+        ],
+        int.parse(formValue['answer'].toString()),
+        formValue['description'].toString(),
+        formValue['address'].toString(),
       ],
-      int.parse(formValue['answer'].toString()),
-      formValue['description'].toString(),
-      formValue['address'].toString(),
-    ]).then((value) {
+      TransactionOverride(
+          value: BigInt.from(
+              int.parse(formValue['value'].toString()) * pow(10, 18))),
+    )
+        .then((value) {
       return value;
     });
     return value;
