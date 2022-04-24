@@ -48,14 +48,14 @@ contract SPAMN is ERC721Enumerable, Ownable, ReentrancyGuard {
 
         require(question.answered == false, "already answerd");
 
-        question.answered = true;
+        _questions[tokenId -1].answered = true;
 
         if (answer == question.answer) {
+            _questions[tokenId -1].corrected = true;
             _burn(tokenId);
-            question.corrected = true;
             payable(msg.sender).transfer(question.value);
         } else {
-            question.corrected = false;
+            _questions[tokenId -1].corrected = false;
             payable(question.owner).transfer(question.value);
         }
     }
@@ -85,9 +85,9 @@ contract SPAMN is ERC721Enumerable, Ownable, ReentrancyGuard {
         return _watches.length;
     }
 
-    function setBaseUrl(string memory baseUrl) public nonReentrant onlyOwner {
-        _baseUrl = baseUrl;
-    }
+    // function setBaseUrl(string memory baseUrl) public nonReentrant onlyOwner {
+    //     _baseUrl = baseUrl;
+    // }
 
     function watchMint(string memory title, string[] memory choices, uint256 answer, string memory description) public nonReentrant payable {
         _listMint(title, choices, answer, description, _watches);
