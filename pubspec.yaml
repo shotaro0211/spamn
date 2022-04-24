@@ -69,6 +69,7 @@ flutter:
   assets:
     - json/spamn.json
     - images/astar.png
+    - images/matic.png
     - images/metamask.png
     - images/logo.png
 

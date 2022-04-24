@@ -70,9 +70,12 @@ class _AnswerPageState extends State<AnswerPage> {
               child: Column(
                 children: <Widget>[
                   SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                  Text(
-                    _title,
-                    style: Theme.of(context).textTheme.headline2,
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Text(
+                      _title,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
                   ),
                   for (int i = 0; i < _choices.length; i++)
                     Padding(
@@ -90,7 +93,7 @@ class _AnswerPageState extends State<AnswerPage> {
                     ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                   Text(
-                    "Reward: ${toEther(_value).toString()} ASTR",
+                    "Reward: ${toEther(_value).toString()} MATIC",
                     style: Theme.of(context).textTheme.headline3,
                   ),
                 ],

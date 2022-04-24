@@ -37,7 +37,7 @@ class MainScaffold extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               child: TextButton(
                 onPressed: () async => await ConnectWeb3().addNetwork(),
-                child: Image.asset('images/astar.png'),
+                child: Image.asset('images/matic.png'),
               ),
             )
           ],

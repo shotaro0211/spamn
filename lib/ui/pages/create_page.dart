@@ -64,7 +64,7 @@ class _CreatePageState extends State<CreatePage> {
                       FormBuilderTextField(
                         name: 'value',
                         decoration: const InputDecoration(
-                          labelText: 'VALUE (ASTR)',
+                          labelText: 'VALUE (MATIC)',
                         ),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(context),

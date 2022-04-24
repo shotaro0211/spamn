@@ -7,9 +7,10 @@ class ConnectWeb3 {
   Future<Signer?> getSigner() async {
     if (ethereum != null) {
       try {
-        await addNetwork();
+        // await addNetwork();
         await ethereum!.requestAccount();
-        const networkId = 592;
+        const networkId = 137;
+        // const networkId = 592;
         await ethereum!.walletSwitchChain(networkId);
         final web3provider = Web3Provider(ethereum!);
         final network = await web3provider.getNetwork();
@@ -33,7 +34,8 @@ class ConnectWeb3 {
 
   Future<bool> isConnected() async {
     if (ethereum != null) {
-      const networkId = 592;
+      const networkId = 137;
+      // const networkId = 592;
       final web3provider = Web3Provider(ethereum!);
       final network = await web3provider.getNetwork();
       final adress = await web3provider.getSigner().getAddress();
@@ -46,10 +48,18 @@ class ConnectWeb3 {
 
   Future addNetwork() async {
     await ethereum!.walletAddChain(
-        chainId: 592,
-        chainName: 'Astar Network',
+        chainId: 137,
+        chainName: 'Polygon Mainnet',
         nativeCurrency:
-            CurrencyParams(name: 'Astar', symbol: 'ASTR', decimals: 18),
-        rpcUrls: ['https://astar.api.onfinality.io/public']);
+            CurrencyParams(name: 'Matic', symbol: 'MATIC', decimals: 18),
+        rpcUrls: ['https://polygon-rpc.com']);
   }
+  // Future addNetwork() async {
+  //   await ethereum!.walletAddChain(
+  //       chainId: 592,
+  //       chainName: 'Astar Network',
+  //       nativeCurrency:
+  //           CurrencyParams(name: 'Astar', symbol: 'ASTR', decimals: 18),
+  //       rpcUrls: ['https://astar.api.onfinality.io/public']);
+  // }
 }
