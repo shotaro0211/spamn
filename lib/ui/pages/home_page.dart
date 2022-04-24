@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   final String _baseUrl = 'https://opensea.io/assets/matic';
   final List<String> _contracts = [
     '0xA77C9240a7AA679B701fF922Bc7454a238F83148',
-    '0xbd3729D4609327DdA496dA12F2694D77a1942923',
+    '0x50274a3EFF61e2A3a46aAa5911D90f740f1CF8b4',
     '0x6985897284d01893950082d3e8B789DAA3034c2f',
   ];
   // Astar
