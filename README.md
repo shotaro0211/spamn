@@ -1,16 +1,56 @@
-# spamn
+# SPAMNの使用技術
 
-A new Flutter project.
+*   スマートコントラクト
+    *   Solidity
+*   フロントエンド
+    *   Flutter Web
 
-## Getting Started
+# スマートコントラクト解説
 
-This project is a starting point for a Flutter application.
+## 主要メソッド
 
-A few resources to get you started if this is your first Flutter project:
+*   addQuestions
+    *   問題作成メソッド
+    *   Question構造体を作成
+        *   title : String : 問題文
+        *   choices : String\[] : 選択肢
+        *   answer : uint : 答え
+        *   description : String : 解説
+        *   owner : address : 問題作成者アドレス
+        *   value : uint256 : 正解報酬
+        *   answered : bool : 答えたかどうか
+        *   corrected : bool : 正解したかどうか
+*   setAnswer
+    *   問題回答メソッド
+    *   引数
+        *   tokenId
+        *   answer : uint : 答え
+    *   メソッドの流れ
+        *   問題NFTを所有してるかどうか（require）
+        *   問題NFTが回答済みかどうか(require)
+        *   問題を正解しているかどうか
+            *   正解した場合
+                *   正解報酬を回答者へ
+                *   NFTはBurnへ
+            *   不正解の場合
+                *   正解報酬を問題作成者へリターン
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+# フロントエンド解説
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+*   ページ一覧
+    *   ウォレット未接続ページ
+        *   Connectする
+            *   ウォレットがない場合
+                *   metamaskインストールページ
+            *   mobileブラウザの場合
+                *   metamaskアプリに遷移
+            *   networkがない場合
+                *   自動ネットワーク追加
+    *   トップページ
+        *   問題コレクション
+            *   問題を作成する
+            *   問題を受け取る
+    *   問題作成ページ
+        *   問題作成フォーム
+    *   問題回答ページ
+        *   問題回答フォーム
